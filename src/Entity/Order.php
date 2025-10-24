@@ -38,7 +38,8 @@ class Order
     public function __construct()
     {
         $this->orderItem = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+
     }
 
     public function getId(): ?int

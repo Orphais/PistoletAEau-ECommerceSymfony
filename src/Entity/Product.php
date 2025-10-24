@@ -53,7 +53,8 @@ class Product
     {
         $this->image = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+
     }
 
     public function getId(): ?int
