@@ -22,6 +22,11 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'image')]
     private ?Product $product = null;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
