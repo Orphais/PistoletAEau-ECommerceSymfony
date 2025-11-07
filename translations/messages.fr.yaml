@@ -1,5 +1,6 @@
 navbar:
     home: "Accueil"
+    login: "Connexion"
     language:
         fr: "Français"
         en: "Anglais"

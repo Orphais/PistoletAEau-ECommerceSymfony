@@ -1,5 +1,6 @@
 navbar:
     home: "Home"
+    login: "Login"
     language:
         fr: "French"
         en: "English"

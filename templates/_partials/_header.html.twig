@@ -17,15 +17,15 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="bi bi-translate"></i></a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}">{{ 'navbar.language.fr'|trans }}</a>
             <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">{{ 'navbar.language.en'|trans }}</a>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('security.login') }}">{{ 'navbar.login'|trans }}</a>
         </li>
       </ul>
     </div>
