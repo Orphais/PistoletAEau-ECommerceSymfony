@@ -1,0 +1,19 @@
+navbar:
+    home: "Accueil"
+    language:
+        fr: "Français"
+        en: "Anglais"
+
+home:
+    pageTitle: "Accueil - TirAmisou"
+    title: "Bienvenue sur TirAmisou !"
+    description: "Description"
+
+security:
+    login:
+        pageTitle: "Connexion - TirAmisou"
+        title: "Formulaire de connexion"
+        email: "Adresse email"
+        email.help: "Nous ne partagerons jamais votre email avec quelqu'un d'autre."
+        password: "Mot de passe"
+        submit: "Se connecter"

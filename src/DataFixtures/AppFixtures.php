@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
 
         // Products
         $products = [];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $product = new Product();
             $product->setName($this->faker->word());
             $product->setDescription($this->faker->sentence());

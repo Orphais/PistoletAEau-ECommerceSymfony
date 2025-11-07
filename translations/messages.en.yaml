@@ -1,0 +1,19 @@
+navbar:
+    home: "Home"
+    language:
+        fr: "French"
+        en: "English"
+
+home:
+    pageTitle: "Home - TirAmisou"
+    title: "Welcome to TirAmisou!"
+    description: "Description EN"
+
+security:
+    login:
+        pageTitle: "Login - TirAmisou"
+        title: "Login Form"
+        email: "Email address"
+        email.help: "We'll never share your email with anyone else."
+        password: "Password"
+        submit: "Log In"
