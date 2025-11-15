@@ -1,0 +1,13 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Administration - Tiramisou
+{% endblock %}
+
+
+{% block body %}
+	<div class="container d-flex flex-column align-items-center justify-content-center">
+		<h1 class="mt-4">Bienvenue dans l'espace d'administration</h1>
+		<p class="mt-2">Utilisez le menu de gauche pour gérer les utilisateurs, les produits et les commandes.</p>
+		<a class="btn btn-primary mt-4" href="{{ path('home') }}">Retour à l'accueil</a>
+	</div>
+{% endblock %}
