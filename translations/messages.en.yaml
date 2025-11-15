@@ -1,6 +1,7 @@
 navbar:
     home: "Home"
     login: "Login"
+    register: "Register"
     language:
         fr: "French"
         en: "English"
@@ -18,3 +19,23 @@ security:
         email.help: "We'll never share your email with anyone else."
         password: "Password"
         submit: "Log In"
+    registration:
+        pageTitle: "Register - TirAmisou"
+        title: "Create an Account"
+        email: "Email address"
+        email_placeholder: "your@email.com"
+        email.help: "We'll never share your email with anyone else."
+        first_name: "First Name"
+        first_name_placeholder: "John"
+        last_name: "Last Name"
+        last_name_placeholder: "Doe"
+        password: "Password"
+        confirm_password: "Confirm Password"
+        address: "Address"
+        address_placeholder: "Select an address"
+        submit: "Register"
+        assert:
+            not_blank_email: "Please provide an email address."
+            not_blank_first_name: "Please provide a first name."
+            not_blank_last_name: "Please provide a last name."
+            not_blank_password: "Please provide a password."

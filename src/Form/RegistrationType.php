@@ -21,11 +21,11 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('email', TextType::class, [
-                'label' => 'Email',
+                'label' => 'security.registration.email',
                 'required' => true,
                 'constraints' => [
                     new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner une adresse email.',
+                        'message' => 'security.registration.assert.not_blank_email',
                     ]),
                     new Assert\Email([
                         'message' => "L'adresse email \"{{ value }}\" n'est pas valide.",
@@ -39,16 +39,16 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => 5,
-                    'placeholder' => 'votre@email.fr',
+                    'placeholder' => 'security.registration.email_placeholder',
                     'type' => 'email',
                 ],
             ])
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'security.registration.first_name',
                 'required' => true,
                 'constraints' => [
                     new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner votre prénom.',
+                        'message' => 'security.registration.assert.not_blank_first_name',
                     ]),
                     new Assert\Length([
                         'min' => 2,
@@ -58,15 +58,15 @@ class RegistrationType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Prénom',
+                    'placeholder' => 'security.registration.first_name_placeholder',
                 ],
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'security.registration.last_name',
                 'required' => true,
                 'constraints' => [
                     new Assert\NotBlank([
-                        'message' => 'Veuillez renseigner votre nom.',
+                        'message' => 'security.registration.assert.not_blank_last_name',
                     ]),
                     new Assert\Length([
                         'min' => 2,
@@ -76,27 +76,18 @@ class RegistrationType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Nom',
+                    'placeholder' => 'security.registration.last_name_placeholder',
                 ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe',
+                    'label' => 'security.registration.password',
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation du mot de passe',
+                    'label' => 'security.registration.confirm_password',
                 ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas.',
-            ])
-            ->add('address', EntityType::class, [
-                'class' => Address::class,
-                'choice_label' => 'id',
-                'placeholder' => 'Sélectionnez une adresse',
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-select',
-                ],
+                'invalid_message' => 'security.registration.assert.password_mismatch',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'S\'inscrire',

@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">{{ 'navbar.home'|trans }}</a>
+          <a class="nav-link active" href="{{ path('home') }}">{{ 'navbar.home'|trans }}</a>
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
@@ -26,6 +26,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('security.login') }}">{{ 'navbar.login'|trans }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('security.registration') }}">{{ 'navbar.register'|trans }}</a>
         </li>
       </ul>
     </div>

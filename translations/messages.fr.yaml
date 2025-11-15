@@ -1,6 +1,7 @@
 navbar:
     home: "Accueil"
     login: "Connexion"
+    register: "Inscription"
     language:
         fr: "Français"
         en: "Anglais"
@@ -18,3 +19,24 @@ security:
         email.help: "Nous ne partagerons jamais votre email avec quelqu'un d'autre."
         password: "Mot de passe"
         submit: "Se connecter"
+    registration:
+        pageTitle: "Inscription - TirAmisou"
+        title: "Créer un compte"
+        email: "Adresse email"
+        email_placeholder: "votre@email.com"
+        email.help: "Nous ne partagerons jamais votre email avec quelqu'un d'autre."
+        first_name: "Prénom"
+        first_name_placeholder: "Jean"
+        last_name: "Nom"
+        last_name_placeholder: "Dupont"
+        password: "Mot de passe"
+        confirm_password: "Confirmer le mot de passe"
+        address: "Adresse"
+        address_placeholder: "Sélectionnez une adresse"
+        submit: "S'inscrire"
+        assert:
+            not_blank_email: "Veuillez fournir une adresse email."
+            not_blank_first_name: "Veuillez fournir un prénom."
+            not_blank_last_name: "Veuillez fournir un nom."
+            not_blank_password: "Veuillez fournir un mot de passe."
+            password_mismatch: "Les mots de passe ne correspondent pas."
