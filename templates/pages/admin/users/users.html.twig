@@ -14,6 +14,7 @@
 					<th>Prénom</th>
 					<th>Nom</th>
 					<th>Email</th>
+					<th>Nombre de commandes</th>
 					<th>Date de création</th>
 					<th></th>
 				</tr>
@@ -24,6 +25,7 @@
 						<td>{{ user.firstName }}</td>
 						<td>{{ user.lastName }}</td>
 						<td>{{ user.email }}</td>
+						<td>{{ user.orders|length }}</td>
 						<td>{{ user.createdAt|date('d/m/Y') }}</td>
 						<td>
 							<div class="dropdown">
@@ -32,7 +34,7 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li>
-										<a class="dropdown-item" href="#">Détails</a>
+										<a class="dropdown-item" href="{{ path('admin.user.show', {'id': user.id}) }}">Détails</a>
 									</li>
 									<li>
 										<a class="dropdown-item" href="#">Modifier</a>
@@ -47,5 +49,13 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<div class="d-flex flex-row justify-content-between align-items-center">
+            <div>
+                <b>{{ usersCount }}</b> résultats
+            </div>
+			<div class="navigation">
+				{{ knp_pagination_render(users, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+			</div>
+		</div>
 	</div>
 {% endblock %}

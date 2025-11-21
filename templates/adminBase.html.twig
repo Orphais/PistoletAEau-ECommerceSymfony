@@ -17,6 +17,8 @@
 		{% block javascripts %}{% endblock %}
 	</head>
 	<body>
+		{% include "_partials/_adminHeaderHorizontal.html.twig" %}
+
 		<div class="row">
 			<div class="col-md-2 min-vh-100 bg-light" style="width: 250px;">
 				{% block header %}
@@ -24,13 +26,13 @@
 				{% endblock %}
 			</div>
 
-			<div class="col"> 
+			<div class="col">
 				{% block body %}{% endblock %}
 			</div>
+		</div>
 
-			<div>
-				{% block footer %}{% endblock %}
-			</div>
-		</body>
-	</html>
-</body></html>
+		<div>
+			{% block footer %}{% endblock %}
+		</div>
+	</body>
+</html>

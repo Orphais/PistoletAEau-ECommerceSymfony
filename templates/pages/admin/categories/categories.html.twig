@@ -1,0 +1,68 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Catégories - Tiramisou
+{% endblock %}
+
+
+{% block body %}
+	<div class="m-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h1 class="">Gestion des catégories</h1>
+			<a href="{{ path('admin.category.new') }}" class="btn btn-secondary">Ajouter une catégorie</a>
+		</div>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Nombre de produits</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for category in categories %}
+					<tr>
+						<td>{{ category.name }}</td>
+						<td>{{ category.description }}</td>
+						<td>{{ category.products|length }}</td>
+						<td>
+							<div class="dropdown">
+								<button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="bi bi-three-dots"></i>
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="{{ path('admin.category.show', {'id': category.id}) }}">Détails</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ path('admin.category.edit', {'id': category.id}) }}">Modifier</a>
+									</li>
+									<li>
+										<a class="dropdown-item text-primary" href="#">Supprimer</a>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="d-flex flex-row justify-content-between align-items-center">
+			<div>
+				<b>{{ categoriesCount }}</b>
+				résultats
+			</div>
+			<div class="navigation">
+				{{ knp_pagination_render(categories, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

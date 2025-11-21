@@ -1,0 +1,134 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Détails - {{ product.name }} - Tiramisou
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h1>Détails - {{ product.name }}</h1>
+			<a href="{{ path('admin.products') }}" class="btn btn-secondary">Retour à la liste</a>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Informations générales</h5>
+					</div>
+					<div class="card-body">
+						<p><strong>Nom :</strong> {{ product.name }}</p>
+						<p><strong>Prix :</strong> {{ product.price }} €</p>
+						<p><strong>Stock :</strong>
+							{% if product.stock > 0 %}
+								<span class="badge bg-success">{{ product.stock }} unités</span>
+							{% else %}
+								<span class="badge bg-danger">Rupture de stock</span>
+							{% endif %}
+						</p>
+						<p><strong>Statut :</strong>
+							{% if product.status.value == 'active' %}
+								<span class="badge bg-success">{{ product.status.value }}</span>
+							{% else %}
+								<span class="badge bg-secondary">{{ product.status.value }}</span>
+							{% endif %}
+						</p>
+						<p class="mb-0"><strong>Créé le :</strong> {{ product.createdAt|date('d/m/Y à H:i') }}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Description</h5>
+					</div>
+					<div class="card-body">
+						{% if product.description %}
+							<p class="mb-0">{{ product.description }}</p>
+						{% else %}
+							<p class="text-muted mb-0">Aucune description disponible</p>
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="card mt-3">
+					<div class="card-header">
+						<h5 class="mb-0">Catégorie</h5>
+					</div>
+					<div class="card-body">
+						{% if product.category %}
+							<p class="mb-0">
+								<span class="badge bg-primary">{{ product.category.name }}</span>
+							</p>
+						{% else %}
+							<p class="text-muted mb-0">Aucune catégorie</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Images</h5>
+					</div>
+					<div class="card-body">
+						{% set images = product.image %}
+						{% if images|length > 0 %}
+							<div class="row">
+								{% for image in images %}
+									<div class="col-md-6 mb-3">
+										<img src="{{ image.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+									</div>
+								{% endfor %}
+							</div>
+						{% else %}
+							<p class="text-muted mb-0">Aucune image disponible</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Historique des commandes</h5>
+					</div>
+					<div class="card-body">
+						{% set orderItems = product.orderItems %}
+						{% if orderItems|length > 0 %}
+							<table class="table table-sm table-striped">
+								<thead>
+									<tr>
+										<th>Référence commande</th>
+										<th class="text-center">Quantité</th>
+										<th class="text-end">Prix</th>
+										<th class="text-center">Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for item in orderItems %}
+										<tr>
+											<td>{{ item.purchaseOrder.reference }}</td>
+											<td class="text-center">{{ item.quantity }}</td>
+											<td class="text-end">{{ item.productPrice|number_format(2, ',', ' ') }} €</td>
+											<td class="text-center">{{ item.purchaseOrder.createdAt|date('d/m/Y') }}</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							<p class="text-muted mb-0 mt-2">
+								<small>Total de commandes : {{ orderItems|length }}</small>
+							</p>
+						{% else %}
+							<p class="text-muted mb-0">Ce produit n'a encore jamais été commandé</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

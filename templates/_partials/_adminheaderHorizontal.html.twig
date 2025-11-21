@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+	<div class="container-fluid px-4">
+		<h4 class="text-primary mb-0 fw-bold">Administration</h4>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor03">
+			<ul class="navbar-nav ms-auto align-items-center">
+				<li class="nav-item dropdown me-3">
+					<a class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<i class="bi bi-translate fs-5"></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end">
+						<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}">
+							<i class="bi bi-flag me-2"></i>{{ 'navbar.language.fr'|trans }}
+						</a>
+						<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+							<i class="bi bi-flag me-2"></i>{{ 'navbar.language.en'|trans }}
+						</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<span class="nav-link d-flex align-items-center">
+						<i class="bi bi-person-circle fs-5 me-2"></i>
+						<span class="fw-semibold">{{ app.user.firstName }} {{ app.user.lastName|first }}.</span>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

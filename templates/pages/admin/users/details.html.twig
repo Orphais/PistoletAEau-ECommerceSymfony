@@ -1,0 +1,169 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Details - Tiramisou
+{% endblock %}
+
+
+{% block body %}
+	<div class="container my-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h1 class="mb-4">Details -
+				{{ user.firstName }}
+				{{ user.lastName }}</h1>
+			<a href="{{ path('admin.users') }}" class="btn btn-secondary">Retour à la liste</a>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Informations personnelles</h5>
+					</div>
+					<div class="card-body">
+						<p>
+							<strong>Email :</strong>
+							{{ user.email }}</p>
+						<p>
+							<strong>Prénom :</strong>
+							{{ user.firstName }}</p>
+						<p>
+							<strong>Nom :</strong>
+							{{ user.lastName }}</p>
+						<p>
+							<strong>Créé le :</strong>
+							{{ user.createdAt|date('d/m/Y') }}</p>
+						<p class="mb-0">
+							<strong>Rôles :</strong>
+							{% for role in user.roles %}
+								<span class="badge bg-primary">{{ role }}</span>
+							{% endfor %}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 mb-4">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Adresse</h5>
+					</div>
+					<div class="card-body">
+						<p>
+							<strong>Rue :</strong>
+							{{ user.address.street }}</p>
+						<p>
+							<strong>Ville :</strong>
+							{{ user.address.city }}</p>
+						<p>
+							<strong>Code postal :</strong>
+							{{ user.address.postalCode }}</p>
+						<p class="mb-0">
+							<strong>Pays :</strong>
+							{{ user.address.country }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="mb-0">Commandes</h5>
+					</div>
+					<div class="card-body">
+						{% set orders = user.getOrders %}
+						{% if orders|length > 0 %}
+							<div class="accordion" id="ordersAccordion">
+								{% for order in orders %}
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="heading{{ order.id }}">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
+												<div class="d-flex justify-content-between w-100 pe-3">
+													<span>
+														<strong>{{ order.reference }}</strong>
+													</span>
+													<span>
+														<span class="badge bg-info me-2">{{ order.status.value }}</span>
+														<small class="text-muted">{{ order.createdAt|date('d/m/Y H:i') }}</small>
+													</span>
+												</div>
+											</button>
+										</h2>
+										<div id="collapse{{ order.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ order.id }}" data-bs-parent="#ordersAccordion">
+											<div class="accordion-body">
+												<div class="row mb-3">
+													<div class="col-md-4">
+														<p>
+															<strong>Référence :</strong>
+															{{ order.reference }}</p>
+													</div>
+													<div class="col-md-4">
+														<p>
+															<strong>Statut :</strong>
+															<span class="badge bg-info">{{ order.status.value }}</span>
+														</p>
+													</div>
+													<div class="col-md-4">
+														<p>
+															<strong>Date :</strong>
+															{{ order.createdAt|date('d/m/Y H:i') }}</p>
+													</div>
+												</div>
+
+												<h6 class="mb-3">Articles de la commande</h6>
+												{% set orderItems = order.getOrderItem %}
+												{% if orderItems|length > 0 %}
+													<table class="table table-sm table-bordered">
+														<thead class="table-light">
+															<tr>
+																<th>Produit</th>
+																<th class="text-center">Quantité</th>
+																<th class="text-end">Prix unitaire</th>
+																<th class="text-end">Sous-total</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% set total = 0 %}
+															{% for item in orderItems %}
+																{% set subtotal = item.quantity * item.productPrice %}
+																{% set total = total + subtotal %}
+																<tr>
+																	<td>{{ item.product.name }}</td>
+																	<td class="text-center">{{ item.quantity }}</td>
+																	<td class="text-end">{{ item.productPrice|number_format(2, ',', ' ') }}
+																		€</td>
+																	<td class="text-end">{{ subtotal|number_format(2, ',', ' ') }}
+																		€</td>
+																</tr>
+															{% endfor %}
+														</tbody>
+														<tfoot class="table-light">
+															<tr>
+																<td colspan="3" class="text-end">
+																	<strong>Total :</strong>
+																</td>
+																<td class="text-end">
+																	<strong>{{ total|number_format(2, ',', ' ') }}
+																		€</strong>
+																</td>
+															</tr>
+														</tfoot>
+													</table>
+												{% else %}
+													<p class="text-muted">Aucun article dans cette commande</p>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						{% else %}
+							<p class="text-muted mb-0">Aucune commande</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

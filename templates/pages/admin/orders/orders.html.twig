@@ -1,0 +1,82 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Commandes - Tiramisou
+{% endblock %}
+
+
+{% block body %}
+	<div class="m-4">
+		<h1 class="">Gestion des commandes</h1>
+
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Client</th>
+					<th>Référence</th>
+					<th>Nombre d'articles</th>
+					<th>Statut</th>
+					<th>Date</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+					<tr>
+						<td>{{ order.customer.lastName }}
+							{{ order.customer.firstName }}</td>
+						<td>{{ order.reference }}</td>
+						<td>{{ order.orderItem|length }}</td>
+						{% if order.status.value == "in_preparation" %}
+							<td>
+								<span class="badge bg-warning">En préparation</span>
+							</td>
+						{% elseif order.status.value == "delivered" %}
+							<td>
+								<span class="badge bg-success">Livré</span>
+							</td>
+						{% elseif order.status.value == "cancelled" %}
+							<td>
+								<span class="badge bg-danger">Annulé</span>
+							</td>
+						{% elseif order.status.value ==  "shipped" %}
+							<td>
+								<span class="badge bg-info">Livraison</span>
+							</td>
+						{% else %}
+							<td>
+								{{ order.status.value }}</td>
+						{% endif %}
+						<td>{{ order.createdAt|date('d/m/Y') }}</td>
+						<td>
+							<div class="dropdown">
+								<button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="bi bi-three-dots"></i>
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="{{ path('admin.order.show', {'id': order.id}) }}">Détails</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">Modifier</a>
+									</li>
+									<li>
+										<a class="dropdown-item text-primary" href="#">Supprimer</a>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="d-flex flex-row justify-content-between align-items-center">
+			<div>
+				<b>{{ ordersCount }}</b>
+				résultats
+			</div>
+			<div class="navigation">
+				{{ knp_pagination_render(orders, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
