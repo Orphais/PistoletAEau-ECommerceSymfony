@@ -5,6 +5,7 @@ namespace App\Form;
 
 use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,7 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('street', TextType::class, [
-                'label' => 'Rue',
+                'label' => 'Rue et numéro',
                 'required' => true,
                 'constraints' => [
                     new Assert\NotBlank([
@@ -28,8 +29,8 @@ class AddressType extends AbstractType
                     ]),
                 ],
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => '123 Rue de la République',
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => '12 rue du Saulcy',
                 ],
             ])
             ->add('city', TextType::class, [
@@ -45,8 +46,8 @@ class AddressType extends AbstractType
                     ]),
                 ],
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Paris',
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => 'Metz',
                 ],
             ])
             ->add('postalCode', TextType::class, [
@@ -67,12 +68,12 @@ class AddressType extends AbstractType
                     ]),
                 ],
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => '75001',
+                    'class' => 'form-control form-control-lg',
+                    'placeholder' => '57000w',
                     'maxlength' => 5,
                 ],
             ])
-            ->add('country', TextType::class, [
+            ->add('country', CountryType::class, [
                 'label' => 'Pays',
                 'required' => true,
                 'constraints' => [
@@ -85,7 +86,7 @@ class AddressType extends AbstractType
                     ]),
                 ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control form-control-lg',
                     'placeholder' => 'France',
                 ],
             ])

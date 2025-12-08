@@ -1,44 +1,44 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Détails - Commande {{ order.reference }} - Tiramisou
+{% block title %}{{ 'admin.orders.detailsPageTitle'|trans }} {{ order.reference }} - Tiramisou
 {% endblock %}
 
 {% block body %}
 	<div class="container my-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1>Détails - Commande {{ order.reference }}</h1>
-			<a href="{{ path('admin.orders') }}" class="btn btn-secondary">Retour à la liste</a>
+			<h1>{{ 'admin.orders.detailsTitle'|trans }} {{ order.reference }}</h1>
+			<a href="{{ path('admin.orders') }}" class="btn btn-secondary">{{ 'admin.common.backToList'|trans }}</a>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Informations générales</h5>
+						<h5 class="mb-0">{{ 'admin.orders.details.generalInfo'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						<p>
-							<strong>Référence :</strong>
+							<strong>{{ 'admin.orders.details.reference'|trans }}</strong>
 							{{ order.reference }}
 						</p>
 						<p>
-							<strong>Statut :</strong>
+							<strong>{{ 'admin.orders.details.status'|trans }}</strong>
 							{% if order.status.value == 'in_preparation' %}
-								<span class="badge bg-warning">En préparation</span>
+								<span class="badge bg-warning">{{ 'admin.common.status.inPreparation'|trans }}</span>
 							{% elseif order.status.value == 'shipped' %}
-								<span class="badge bg-info">Expédiée</span>
+								<span class="badge bg-info">{{ 'admin.common.status.shipped'|trans }}</span>
 							{% elseif order.status.value == 'delivered' %}
-								<span class="badge bg-success">Livrée</span>
+								<span class="badge bg-success">{{ 'admin.common.status.delivered'|trans }}</span>
 							{% elseif order.status.value == 'cancelled' %}
-								<span class="badge bg-danger">Annulée</span>
+								<span class="badge bg-danger">{{ 'admin.common.status.cancelled'|trans }}</span>
 							{% endif %}
 						</p>
 						<p>
-							<strong>Nombre d'articles :</strong>
+							<strong>{{ 'admin.orders.details.itemCount'|trans }}</strong>
 							<span class="badge bg-primary">{{ order.orderItem|length }}</span>
 						</p>
 						<p class="mb-0">
-							<strong>Créé le :</strong>
+							<strong>{{ 'admin.orders.details.createdAt'|trans }}</strong>
 							{{ order.createdAt|date('d/m/Y à H:i') }}
 						</p>
 					</div>
@@ -48,24 +48,24 @@
 			<div class="col-md-6 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Informations client</h5>
+						<h5 class="mb-0">{{ 'admin.orders.details.customerInfo'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						{% if order.customer %}
 							<p>
-								<strong>Nom :</strong>
+								<strong>{{ 'admin.orders.details.customerName'|trans }}</strong>
 								{{ order.customer.lastName }}
 							</p>
 							<p>
-								<strong>Prénom :</strong>
+								<strong>{{ 'admin.orders.details.customerFirstName'|trans }}</strong>
 								{{ order.customer.firstName }}
 							</p>
 							<p class="mb-0">
-								<strong>Email :</strong>
+								<strong>{{ 'admin.orders.details.customerEmail'|trans }}</strong>
 								<a href="mailto:{{ order.customer.email }}">{{ order.customer.email }}</a>
 							</p>
 						{% else %}
-							<p class="text-muted mb-0">Aucun client associé</p>
+							<p class="text-muted mb-0">{{ 'admin.common.messages.noCustomer'|trans }}</p>
 						{% endif %}
 					</div>
 				</div>
@@ -76,17 +76,17 @@
 			<div class="col-md-12 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Articles de la commande</h5>
+						<h5 class="mb-0">{{ 'admin.orders.details.orderItems'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						{% if order.orderItem|length > 0 %}
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th>Produit</th>
-										<th class="text-end">Prix unitaire</th>
-										<th class="text-center">Quantité</th>
-										<th class="text-end">Sous-total</th>
+										<th>{{ 'admin.orders.details.product'|trans }}</th>
+										<th class="text-end">{{ 'admin.common.fields.unitPrice'|trans }}</th>
+										<th class="text-center">{{ 'admin.common.fields.quantity'|trans }}</th>
+										<th class="text-end">{{ 'admin.common.fields.subtotal'|trans }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -99,7 +99,7 @@
 												{% if item.product %}
 													{{ item.product.name }}
 												{% else %}
-													<span class="text-muted">Produit supprimé</span>
+													<span class="text-muted">{{ 'admin.common.messages.deletedProduct'|trans }}</span>
 												{% endif %}
 											</td>
 											<td class="text-end">{{ item.productPrice|number_format(2, ',', ' ') }} €</td>
@@ -110,13 +110,13 @@
 								</tbody>
 								<tfoot>
 									<tr class="fw-bold">
-										<td colspan="3" class="text-end">Total :</td>
+										<td colspan="3" class="text-end">{{ 'admin.common.fields.total'|trans }} :</td>
 										<td class="text-end">{{ total|number_format(2, ',', ' ') }} €</td>
 									</tr>
 								</tfoot>
 							</table>
 						{% else %}
-							<p class="text-muted mb-0">Aucun article dans cette commande</p>
+							<p class="text-muted mb-0">{{ 'admin.orders.details.noItems'|trans }}</p>
 						{% endif %}
 					</div>
 				</div>

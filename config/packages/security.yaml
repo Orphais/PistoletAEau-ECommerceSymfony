@@ -19,6 +19,7 @@ security:
             form_login:
                 login_path: security.login
                 check_path: security.login
+                default_target_path: security.redirect_after_login
             logout:
                 path: security.logout
 

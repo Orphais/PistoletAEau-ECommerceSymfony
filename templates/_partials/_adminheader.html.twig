@@ -1,21 +1,21 @@
 <nav class="sidebar d-flex flex-column p-3">
 	<ul class="nav flex-column">
 		<li class="nav-item">
-			<h6 class="mt-2">ACCUEIL</h6>
-			<a class="nav-link text-dark" href="{{ path('admin') }}"><i class="bi bi-house-door me-2"></i>Accueil</a>
+			<h6 class="mt-2">{{ 'admin.sidebar.home.title'|trans }}</h6>
+			<a class="nav-link text-dark" href="{{ path('admin') }}"><i class="bi bi-house-door me-2"></i>{{ 'admin.sidebar.home.link'|trans }}</a>
 		</li>
 		<li class="nav-item">
-			<h6 class="mt-4">GESTION DES UTILISATEURS</h6>
-			<a class="nav-link text-dark" href="{{ path('admin.users') }}"><i class="bi bi-people me-2"></i>Utilisateurs</a>
+			<h6 class="mt-4">{{ 'admin.sidebar.users.title'|trans }}</h6>
+			<a class="nav-link text-dark" href="{{ path('admin.users') }}"><i class="bi bi-people me-2"></i>{{ 'admin.sidebar.users.link'|trans }}</a>
 		</li>
 		<li class="nav-item">
-			<h6 class="mt-4">GESTION DES PRODUITS</h6>
-			<a class="nav-link text-dark" href="{{ path('admin.products') }}"><i class="bi bi-box-seam me-2"></i>Produits</a>
-			<a class="nav-link text-dark" href="{{ path('admin.categories') }}"><i class="bi bi-tags me-2"></i>Catégories</a>
+			<h6 class="mt-4">{{ 'admin.sidebar.products.title'|trans }}</h6>
+			<a class="nav-link text-dark" href="{{ path('admin.products') }}"><i class="bi bi-box-seam me-2"></i>{{ 'admin.sidebar.products.productsLink'|trans }}</a>
+			<a class="nav-link text-dark" href="{{ path('admin.categories') }}"><i class="bi bi-tags me-2"></i>{{ 'admin.sidebar.products.categoriesLink'|trans }}</a>
 		</li>
 		<li class="nav-item">
-			<h6 class="mt-4">GESTION DES COMMANDES</h6>
-			<a class="nav-link text-dark" href="{{ path('admin.orders') }}"><i class="bi bi-cart-check me-2"></i>Commandes</a>
+			<h6 class="mt-4">{{ 'admin.sidebar.orders.title'|trans }}</h6>
+			<a class="nav-link text-dark" href="{{ path('admin.orders') }}"><i class="bi bi-cart-check me-2"></i>{{ 'admin.sidebar.orders.link'|trans }}</a>
 		</li>
 	</ul>
 </nav>

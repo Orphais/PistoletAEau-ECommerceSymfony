@@ -14,7 +14,9 @@
 		{% endblock %}
 
 
-		{% block javascripts %}{% endblock %}
+		{% block javascripts %}
+			{{ importmap('app') }}
+		{% endblock %}
 	</head>
 	<body>
 		{% include "_partials/_adminHeaderHorizontal.html.twig" %}
@@ -34,5 +36,7 @@
 		<div>
 			{% block footer %}{% endblock %}
 		</div>
+
+		{% include "_partials/_deleteModal.html.twig" %}
 	</body>
 </html>

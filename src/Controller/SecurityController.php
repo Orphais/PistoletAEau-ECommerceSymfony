@@ -66,4 +66,14 @@ final class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/redirect-after-login', name: 'security.redirect_after_login')]
+    public function redirectAfterLogin(): Response
+    {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('admin');
+        }
+
+        return $this->redirectToRoute('home.index');
+    }
 }

@@ -1,14 +1,14 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Produits - Tiramisou
+{% block title %}{{ 'admin.products.pageTitle'|trans }}
 {% endblock %}
 
 
 {% block body %}
 	<div class="m-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1 class="">Gestion des produits</h1>
-			<a href="{{ path('admin.product.new') }}" class="btn btn-secondary">Ajouter un produit</a>
+			<h1 class="">{{ 'admin.products.title'|trans }}</h1>
+			<a href="{{ path('admin.product.new') }}" class="btn btn-secondary">{{ 'admin.products.addButton'|trans }}</a>
 		</div>
 
 		{% for message in app.flashes('success') %}
@@ -22,18 +22,20 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Nom</th>
-					<th>Catégorie</th>
-					<th>Description</th>
-					<th>Prix</th>
-					<th>Stock</th>
+					<th>{{ 'admin.products.table.name'|trans }}</th>
+					<th>{{ 'admin.products.table.category'|trans }}</th>
+					<th>{{ 'admin.products.table.description'|trans }}</th>
+					<th>{{ 'admin.products.table.price'|trans }}</th>
+					<th>{{ 'admin.products.table.stock'|trans }}</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for product in products %}
 					<tr>
-						<td><img src="{{ product.image[0].url }}" alt="{{ product.name }}" width="50"></td>
+						{% if product.image %}
+							<td><img src="{{ product.image[0].url }}" alt="{{ product.name }}" width="50"></td>
+						{% endif %}						
 						<td>{{ product.name }}</td>
 						<td>{{ product.category.name }}</td>
 						<td>{{ product.description }}</td>
@@ -41,7 +43,7 @@
 						{% if product.stock != 0 %}
 							<td>{{ product.stock }}</td>
 						{% else %}
-							<td class="text-primary">Rupture</td>
+							<td class="text-primary">{{ 'admin.products.outOfStock'|trans }}</td>
 						{% endif %}
 						<td>
 							<div class="dropdown">
@@ -50,13 +52,19 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li>
-										<a class="dropdown-item" href="{{ path('admin.product.show', {'id': product.id}) }}">Détails</a>
+										<a class="dropdown-item" href="{{ path('admin.product.show', {'id': product.id}) }}">{{ 'admin.common.actions.details'|trans }}</a>
 									</li>
 									<li>
-										<a class="dropdown-item" href="{{ path('admin.product.edit', {'id': product.id}) }}">Modifier</a>
+										<a class="dropdown-item" href="{{ path('admin.product.edit', {'id': product.id}) }}">{{ 'admin.common.actions.edit'|trans }}</a>
 									</li>
 									<li>
-										<a class="dropdown-item text-primary" href="#">Supprimer</a>
+										<button
+											type="button"
+											class="dropdown-item text-primary"
+											data-delete-url="{{ path('admin.product.delete', {'id': product.id}) }}"
+											data-delete-message="{{ 'admin.products.confirmDelete'|trans }} {{ product.name }} ?">
+											{{ 'admin.common.actions.delete'|trans }}
+										</button>
 									</li>
 								</ul>
 							</div>
@@ -68,7 +76,7 @@
 		<div class="d-flex flex-row justify-content-between align-items-center">
 			<div>
 				<b>{{ productsCount }}</b>
-				résultats
+				{{ 'admin.common.results'|trans }}
 			</div>
 			<div class="navigation">
 				{{ knp_pagination_render(products, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}

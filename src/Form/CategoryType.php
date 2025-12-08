@@ -49,7 +49,7 @@ class CategoryType extends AbstractType
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer la catégorie',
+                'label' => 'Appliquer',
                 'attr' => [
                     'class' => 'btn btn-primary mt-3',
                 ],

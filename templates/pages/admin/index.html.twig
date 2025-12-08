@@ -1,13 +1,133 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Administration - Tiramisou
+{% block title %}{{ 'admin.dashboard.pageTitle'|trans }}
 {% endblock %}
 
 
 {% block body %}
-	<div class="container d-flex flex-column align-items-center justify-content-center">
-		<h1 class="mt-4">Bienvenue dans l'espace d'administration</h1>
-		<p class="mt-2">Utilisez le menu de gauche pour gérer les utilisateurs, les produits et les commandes.</p>
-		<a class="btn btn-primary mt-4" href="{{ path('home') }}">Retour à l'accueil</a>
+	<div class="container my-5">
+		<div class="text-center mb-5">
+			<h1 class="display-4">{{ 'admin.dashboard.title'|trans }}</h1>
+			<p class="lead text-muted">{{ 'admin.dashboard.description'|trans }}</p>
+			<a class="btn btn-outline-primary" href="{{ path('home') }}">{{ 'admin.dashboard.backToHome'|trans }}</a>
+		</div>
+
+		<div class="row g-4">
+			<div class="col-lg-6 col-xl-3">
+				<div class="card shadow-sm h-100">
+					<div class="card-header bg-primary text-white">
+						<h5 class="card-title mb-0">{{ 'admin.dashboard.categoryStats.title'|trans }}</h5>
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>{{ 'admin.dashboard.categoryStats.category'|trans }}</th>
+									<th class="text-end">{{ 'admin.dashboard.categoryStats.products'|trans }}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for category in categories %}
+									<tr style="cursor: pointer;" onclick="window.location='{{ path('admin.category.show', {'id': category.id}) }}';">
+										<td>{{ category.name }}</td>
+										<td class="text-end">
+											<span class="badge bg-primary rounded-pill">{{ category.products|length }}</span>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-xl-3">
+				<div class="card shadow-sm h-100">
+					<div class="card-header bg-success text-white">
+						<h5 class="card-title mb-0">{{ 'admin.dashboard.recentOrders.title'|trans }}</h5>
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>{{ 'admin.dashboard.recentOrders.reference'|trans }}</th>
+									<th>{{ 'admin.dashboard.recentOrders.customer'|trans }}</th>
+									<th>{{ 'admin.dashboard.recentOrders.date'|trans }}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for order in orders %}
+									<tr style="cursor: pointer;" onclick="window.location='{{ path('admin.order.show', {'id': order.id}) }}';">
+										<td><small>{{ order.reference }}</small></td>
+										<td><small>{{ order.customer.lastName }} {{ order.customer.firstName }}</small></td>
+										<td><small>{{ order.createdAt|date('d/m/Y') }}</small></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-xl-3">
+				<div class="card shadow-sm h-100">
+					<div class="card-header bg-info text-white">
+						<h5 class="card-title mb-0">{{ 'admin.dashboard.revenue.title'|trans }}</h5>
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>{{ 'admin.dashboard.revenue.month'|trans }}</th>
+									<th class="text-end">{{ 'admin.dashboard.revenue.amount'|trans }}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for sale in salesByMonth %}
+									<tr>
+										<td>{{ sale.month }}</td>
+										<td class="text-end fw-bold">{{ sale.totalSales|number_format(2, ',', ' ') }} €</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="2" class="text-center text-muted">
+											<small>{{ 'admin.dashboard.revenue.noSales'|trans }}</small>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-xl-3">
+				<div class="card shadow-sm h-100">
+					<div class="card-header bg-warning text-dark">
+						<h5 class="card-title mb-0">{{ 'admin.dashboard.stockRatio.title'|trans }}</h5>
+					</div>
+					<div class="card-body p-0">
+						<table class="table table-hover mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>{{ 'admin.dashboard.stockRatio.status'|trans }}</th>
+									<th class="text-end">{{ 'admin.dashboard.stockRatio.ratio'|trans }}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for ratio in stockRatio %}
+									<tr>
+										<td>{{ ratio.status.value }}</td>
+										<td class="text-end">
+											<span class="badge bg-secondary">{{ ratio.percentage }}%</span>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}

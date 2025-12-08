@@ -1,0 +1,43 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}{{ 'admin.users.editTitle'|trans }} {{ user.email }} - Tiramisou
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid my-4 px-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h1>{{ 'admin.users.editTitle'|trans }} {{ user.firstName }} {{ user.lastName }}</h1>
+			<a href="{{ path('admin.users') }}" class="btn btn-secondary">
+				<i class="bi bi-arrow-left me-2"></i>{{ 'admin.common.backToList'|trans }}
+			</a>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-10 col-xl-8">
+				<div class="card shadow-sm">
+					<div class="card-header bg-primary text-white">
+						<h5 class="mb-0">
+							{{ 'admin.users.cardTitleWithName'|trans }} {{ user.firstName }} {{ user.lastName }}
+						</h5>
+					</div>
+					<div class="card-body">
+						{{ form_start(form) }}
+
+						{{ form_row(form.email) }}
+
+						<div class="row mt-2">
+							<div class="col-md-6">
+								{{ form_row(form.firstName) }}
+							</div>
+							<div class="col-md-6">
+								{{ form_row(form.lastName) }}
+							</div>
+						</div>
+
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

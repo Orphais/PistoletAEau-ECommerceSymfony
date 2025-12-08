@@ -1,39 +1,39 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Détails - {{ product.name }} - Tiramisou
+{% block title %}{{ 'admin.products.detailsTitle'|trans }} {{ product.name }} - Tiramisou
 {% endblock %}
 
 {% block body %}
 	<div class="container my-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1>Détails - {{ product.name }}</h1>
-			<a href="{{ path('admin.products') }}" class="btn btn-secondary">Retour à la liste</a>
+			<h1>{{ 'admin.products.detailsTitle'|trans }} {{ product.name }}</h1>
+			<a href="{{ path('admin.products') }}" class="btn btn-secondary">{{ 'admin.common.backToList'|trans }}</a>
 		</div>
 
 		<div class="row">
 			<div class="col-md-6 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Informations générales</h5>
+						<h5 class="mb-0">{{ 'admin.products.details.generalInfo'|trans }}</h5>
 					</div>
 					<div class="card-body">
-						<p><strong>Nom :</strong> {{ product.name }}</p>
-						<p><strong>Prix :</strong> {{ product.price }} €</p>
-						<p><strong>Stock :</strong>
+						<p><strong>{{ 'admin.products.details.name'|trans }}</strong> {{ product.name }}</p>
+						<p><strong>{{ 'admin.products.details.price'|trans }}</strong> {{ product.price }} €</p>
+						<p><strong>{{ 'admin.products.details.stock'|trans }}</strong>
 							{% if product.stock > 0 %}
-								<span class="badge bg-success">{{ product.stock }} unités</span>
+								<span class="badge bg-success">{{ product.stock }} {{ 'admin.common.status.units'|trans }}</span>
 							{% else %}
-								<span class="badge bg-danger">Rupture de stock</span>
+								<span class="badge bg-danger">{{ 'admin.common.status.outOfStock'|trans }}</span>
 							{% endif %}
 						</p>
-						<p><strong>Statut :</strong>
+						<p><strong>{{ 'admin.products.details.status'|trans }}</strong>
 							{% if product.status.value == 'active' %}
 								<span class="badge bg-success">{{ product.status.value }}</span>
 							{% else %}
 								<span class="badge bg-secondary">{{ product.status.value }}</span>
 							{% endif %}
 						</p>
-						<p class="mb-0"><strong>Créé le :</strong> {{ product.createdAt|date('d/m/Y à H:i') }}</p>
+						<p class="mb-0"><strong>{{ 'admin.products.details.createdAt'|trans }}</strong> {{ product.createdAt|date('d/m/Y à H:i') }}</p>
 					</div>
 				</div>
 			</div>
@@ -41,20 +41,20 @@
 			<div class="col-md-6 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Description</h5>
+						<h5 class="mb-0">{{ 'admin.products.details.description'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						{% if product.description %}
 							<p class="mb-0">{{ product.description }}</p>
 						{% else %}
-							<p class="text-muted mb-0">Aucune description disponible</p>
+							<p class="text-muted mb-0">{{ 'admin.common.messages.noDescription'|trans }}</p>
 						{% endif %}
 					</div>
 				</div>
 
 				<div class="card mt-3">
 					<div class="card-header">
-						<h5 class="mb-0">Catégorie</h5>
+						<h5 class="mb-0">{{ 'admin.products.details.category'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						{% if product.category %}
@@ -62,7 +62,7 @@
 								<span class="badge bg-primary">{{ product.category.name }}</span>
 							</p>
 						{% else %}
-							<p class="text-muted mb-0">Aucune catégorie</p>
+							<p class="text-muted mb-0">{{ 'admin.common.messages.noCategory'|trans }}</p>
 						{% endif %}
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 			<div class="col-md-6 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Images</h5>
+						<h5 class="mb-0">{{ 'admin.products.details.images'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						{% set images = product.image %}
@@ -86,7 +86,7 @@
 								{% endfor %}
 							</div>
 						{% else %}
-							<p class="text-muted mb-0">Aucune image disponible</p>
+							<p class="text-muted mb-0">{{ 'admin.common.messages.noImage'|trans }}</p>
 						{% endif %}
 					</div>
 				</div>
@@ -95,7 +95,7 @@
 			<div class="col-md-6 mb-4">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="mb-0">Historique des commandes</h5>
+						<h5 class="mb-0">{{ 'admin.products.details.orderHistory'|trans }}</h5>
 					</div>
 					<div class="card-body">
 						{% set orderItems = product.orderItems %}
@@ -103,10 +103,10 @@
 							<table class="table table-sm table-striped">
 								<thead>
 									<tr>
-										<th>Référence commande</th>
-										<th class="text-center">Quantité</th>
-										<th class="text-end">Prix</th>
-										<th class="text-center">Date</th>
+										<th>{{ 'admin.products.details.orderReference'|trans }}</th>
+										<th class="text-center">{{ 'admin.common.fields.quantity'|trans }}</th>
+										<th class="text-end">{{ 'admin.common.fields.price'|trans }}</th>
+										<th class="text-center">{{ 'admin.common.fields.date'|trans }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -121,10 +121,10 @@
 								</tbody>
 							</table>
 							<p class="text-muted mb-0 mt-2">
-								<small>Total de commandes : {{ orderItems|length }}</small>
+								<small>{{ 'admin.products.details.totalOrders'|trans }} {{ orderItems|length }}</small>
 							</p>
 						{% else %}
-							<p class="text-muted mb-0">Ce produit n'a encore jamais été commandé</p>
+							<p class="text-muted mb-0">{{ 'admin.products.details.neverOrdered'|trans }}</p>
 						{% endif %}
 					</div>
 				</div>

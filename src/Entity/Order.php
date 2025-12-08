@@ -27,6 +27,7 @@ class Order
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?user $customer = null;
 
     /**

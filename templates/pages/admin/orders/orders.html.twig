@@ -1,21 +1,21 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Commandes - Tiramisou
+{% block title %}{{ 'admin.orders.pageTitle'|trans }}
 {% endblock %}
 
 
 {% block body %}
 	<div class="m-4">
-		<h1 class="">Gestion des commandes</h1>
+		<h1 class="">{{ 'admin.orders.title'|trans }}</h1>
 
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
-					<th>Client</th>
-					<th>Référence</th>
-					<th>Nombre d'articles</th>
-					<th>Statut</th>
-					<th>Date</th>
+					<th>{{ 'admin.orders.table.customer'|trans }}</th>
+					<th>{{ 'admin.orders.table.reference'|trans }}</th>
+					<th>{{ 'admin.orders.table.itemCount'|trans }}</th>
+					<th>{{ 'admin.orders.table.status'|trans }}</th>
+					<th>{{ 'admin.orders.table.date'|trans }}</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -28,19 +28,19 @@
 						<td>{{ order.orderItem|length }}</td>
 						{% if order.status.value == "in_preparation" %}
 							<td>
-								<span class="badge bg-warning">En préparation</span>
+								<span class="badge bg-warning">{{ 'admin.common.status.inPreparation'|trans }}</span>
 							</td>
 						{% elseif order.status.value == "delivered" %}
 							<td>
-								<span class="badge bg-success">Livré</span>
+								<span class="badge bg-success">{{ 'admin.common.status.delivered'|trans }}</span>
 							</td>
 						{% elseif order.status.value == "cancelled" %}
 							<td>
-								<span class="badge bg-danger">Annulé</span>
+								<span class="badge bg-danger">{{ 'admin.common.status.cancelled'|trans }}</span>
 							</td>
 						{% elseif order.status.value ==  "shipped" %}
 							<td>
-								<span class="badge bg-info">Livraison</span>
+								<span class="badge bg-info">{{ 'admin.common.status.shipped'|trans }}</span>
 							</td>
 						{% else %}
 							<td>
@@ -54,13 +54,7 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li>
-										<a class="dropdown-item" href="{{ path('admin.order.show', {'id': order.id}) }}">Détails</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="#">Modifier</a>
-									</li>
-									<li>
-										<a class="dropdown-item text-primary" href="#">Supprimer</a>
+										<a class="dropdown-item" href="{{ path('admin.order.show', {'id': order.id}) }}">{{ 'admin.common.actions.details'|trans }}</a>
 									</li>
 								</ul>
 							</div>
@@ -72,7 +66,7 @@
 		<div class="d-flex flex-row justify-content-between align-items-center">
 			<div>
 				<b>{{ ordersCount }}</b>
-				résultats
+				{{ 'admin.common.results'|trans }}
 			</div>
 			<div class="navigation">
 				{{ knp_pagination_render(orders, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}

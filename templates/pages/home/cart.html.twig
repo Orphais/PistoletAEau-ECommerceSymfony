@@ -1,0 +1,148 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ 'cart.pageTitle'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<nav aria-label="breadcrumb" class="mb-3">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('home', {'_locale': app.request.locale}) }}">{{ 'navbar.home'|trans }}</a>
+				</li>
+				<li class="breadcrumb-item active">{{ 'cart.title'|trans }}</li>
+			</ol>
+		</nav>
+
+		<h2 class="mb-4">{{ 'cart.title'|trans }}</h2>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% if cart and cart.items|length > 0 %}
+			<div class="row">
+				<div class="col-md-8">
+					<div class="card mb-3">
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>{{ 'cart.table.product'|trans }}</th>
+										<th class="text-center">{{ 'cart.table.price'|trans }}</th>
+										<th class="text-center">{{ 'cart.table.quantity'|trans }}</th>
+										<th class="text-center">{{ 'cart.table.subtotal'|trans }}</th>
+										<th class="text-center">{{ 'cart.table.actions'|trans }}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for item in cart.items %}
+										<tr data-controller="cart-item"
+											data-cart-item-item-id-value="{{ item.id }}"
+											data-cart-item-locale-value="{{ app.request.locale }}">
+											<td>
+												<div class="d-flex align-items-center">
+													{% if item.product.getImage|length > 0 %}
+														<img src="{{ item.product.getImage[0].url }}" alt="{{ item.product.name }}" class="me-2" style="width: 60px; height: 60px; object-fit: cover;">
+													{% else %}
+														<div class="bg-secondary me-2" style="width: 60px; height: 60px;"></div>
+													{% endif %}
+													<div>
+														<a href="{{ path('product.show', {'_locale': app.request.locale, 'id': item.product.id}) }}">
+															{{ item.product.name }}
+														</a>
+														{% if item.product.category %}
+															<br>
+															<small class="text-muted">{{ item.product.category.name }}</small>
+														{% endif %}
+													</div>
+												</div>
+											</td>
+											<td class="text-center align-middle">
+												{{ item.product.price|number_format(2, ',', ' ') }} €
+											</td>
+											<td class="text-center align-middle">
+												<div class="input-group input-group-sm" style="width: 120px; margin: 0 auto;">
+													<button type="button"
+															class="btn btn-outline-secondary"
+															data-action="click->cart-item#decrease"
+															{% if item.quantity <= 1 %}disabled{% endif %}>
+														-
+													</button>
+													<input type="number"
+														   class="form-control text-center"
+														   data-cart-item-target="quantity"
+														   value="{{ item.quantity }}"
+														   readonly>
+													<button type="button"
+															class="btn btn-outline-secondary"
+															data-action="click->cart-item#increase"
+															{% if item.quantity >= item.product.stock %}disabled{% endif %}>
+														+
+													</button>
+												</div>
+											</td>
+											<td class="text-center align-middle">
+												<span data-cart-item-target="itemTotal">{{ item.getTotalPrice()|number_format(2, ',', ' ') }} €</span>
+											</td>
+											<td class="text-center align-middle">
+												<button type="button"
+														class="btn btn-danger btn-sm"
+														data-cart-item-target="removeButton"
+														data-action="click->cart-item#remove">
+													<i class="bi bi-trash"></i>
+												</button>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5>{{ 'cart.summary.title'|trans }}</h5>
+							<hr>
+							<div class="d-flex justify-content-between mb-2">
+								<span>{{ 'cart.summary.items'|trans }}</span>
+								<span>{{ cart.totalItems }}</span>
+							</div>
+							<div class="d-flex justify-content-between mb-2">
+								<span>{{ 'cart.summary.subtotal'|trans }}</span>
+								<span>{{ cart.totalPrice|number_format(2, ',', ' ') }} €</span>
+							</div>
+							<hr>
+							<div class="d-flex justify-content-between mb-3">
+								<strong>{{ 'cart.summary.total'|trans }}</strong>
+								<strong data-cart-total>{{ cart.totalPrice|number_format(2, ',', ' ') }} €</strong>
+							</div>
+
+							<div class="d-grid gap-2">
+								<a href="{{ path('address', {'_locale': app.request.locale}) }}" class="btn btn-primary">
+									{{ 'cart.checkout'|trans }}
+								</a>
+								<a href="{{ path('home', {'_locale': app.request.locale}) }}" class="btn btn-secondary">
+									{{ 'cart.continueShopping'|trans }}
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="text-center py-5">
+				<h3 class="mb-3">{{ 'cart.empty.title'|trans }}</h3>
+				<p class="text-muted mb-4">{{ 'cart.empty.description'|trans }}</p>
+				<a href="{{ path('home', {'_locale': app.request.locale}) }}" class="btn btn-primary">
+					{{ 'cart.empty.startShopping'|trans }}
+				</a>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

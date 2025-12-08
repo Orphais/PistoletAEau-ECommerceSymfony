@@ -33,6 +33,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findByOrderNotDeliveredAndNotCancelled(int $userId)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.orders', 'o')
+            ->addSelect('o')
+            ->where('u.id = :userId')
+            ->andWhere('o.status != :deliveredStatus')
+            ->andWhere('o.status != :cancelledStatus')
+            ->setParameter('userId', $userId)
+            ->setParameter('deliveredStatus', 'delivered')
+            ->setParameter('cancelledStatus', 'cancelled')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

@@ -1,0 +1,59 @@
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-danger text-white">
+				<h5 class="modal-title" id="deleteConfirmModalLabel">
+					<i class="bi bi-exclamation-triangle-fill me-2"></i>
+					{{ 'modal.delete.title'|trans }}
+				</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p class="mb-0" id="deleteConfirmMessage">
+					{{ 'modal.delete.message'|trans }}
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					<i class="bi bi-x-circle me-1"></i>
+					{{ 'modal.delete.cancel'|trans }}
+				</button>
+				<form id="deleteConfirmForm" method="post" style="display: inline;">
+					<button type="submit" class="btn btn-danger">
+						<i class="bi bi-trash me-1"></i>
+						{{ 'modal.delete.confirm'|trans }}
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+		const deleteForm = document.getElementById('deleteConfirmForm');
+		const deleteMessage = document.getElementById('deleteConfirmMessage');
+
+		// listeners sur btn de suppression
+		document.querySelectorAll('[data-delete-url]').forEach(button => {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				const deleteUrl = this.getAttribute('data-delete-url');
+				const customMessage = this.getAttribute('data-delete-message');
+
+				// maj sur action
+				deleteForm.setAttribute('action', deleteUrl);
+
+				// maj du message si personnalisé
+				if (customMessage) {
+					deleteMessage.textContent = customMessage;
+				} else {
+					deleteMessage.textContent = '{{ 'modal.delete.message'|trans }}';
+				}
+
+				deleteModal.show();
+			});
+		});
+	});
+</script>

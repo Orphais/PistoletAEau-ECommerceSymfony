@@ -1,14 +1,14 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Nouvelle catégorie - Tiramisou
+{% block title %}{{ 'admin.categories.newPageTitle'|trans }}
 {% endblock %}
 
 {% block body %}
 	<div class="container-fluid my-4 px-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1>Ajouter une nouvelle catégorie</h1>
+			<h1>{{ 'admin.categories.newTitle'|trans }}</h1>
 			<a href="{{ path('admin.categories') }}" class="btn btn-secondary">
-				<i class="bi bi-arrow-left me-2"></i>Retour à la liste
+				<i class="bi bi-arrow-left me-2"></i>{{ 'admin.common.backToList'|trans }}
 			</a>
 		</div>
 
@@ -16,7 +16,7 @@
 			<div class="col-lg-10 col-xl-8">
 				<div class="card shadow-sm">
 					<div class="card-header bg-primary text-white">
-						<h5 class="mb-0">Informations de la catégorie
+						<h5 class="mb-0">{{ 'admin.categories.cardTitle'|trans }}
 						</h5>
 					</div>
 					<div class="card-body">

@@ -79,15 +79,12 @@ class RegistrationType extends AbstractType
                     'placeholder' => 'security.registration.last_name_placeholder',
                 ],
             ])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'first_options' => [
-                    'label' => 'security.registration.password',
+            ->add('password', PasswordType::class, [
+                'label' => 'security.registration.password',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control',
                 ],
-                'second_options' => [
-                    'label' => 'security.registration.confirm_password',
-                ],
-                'invalid_message' => 'security.registration.assert.password_mismatch',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'S\'inscrire',

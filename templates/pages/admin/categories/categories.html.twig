@@ -1,14 +1,14 @@
 {% extends 'adminBase.html.twig' %}
 
-{% block title %}Catégories - Tiramisou
+{% block title %}{{ 'admin.categories.pageTitle'|trans }}
 {% endblock %}
 
 
 {% block body %}
 	<div class="m-4">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1 class="">Gestion des catégories</h1>
-			<a href="{{ path('admin.category.new') }}" class="btn btn-secondary">Ajouter une catégorie</a>
+			<h1 class="">{{ 'admin.categories.title'|trans }}</h1>
+			<a href="{{ path('admin.category.new') }}" class="btn btn-secondary">{{ 'admin.categories.addButton'|trans }}</a>
 		</div>
 
 		{% for message in app.flashes('success') %}
@@ -21,9 +21,9 @@
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
-					<th>Nom</th>
-					<th>Description</th>
-					<th>Nombre de produits</th>
+					<th>{{ 'admin.categories.table.name'|trans }}</th>
+					<th>{{ 'admin.categories.table.description'|trans }}</th>
+					<th>{{ 'admin.categories.table.productCount'|trans }}</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -40,13 +40,19 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li>
-										<a class="dropdown-item" href="{{ path('admin.category.show', {'id': category.id}) }}">Détails</a>
+										<a class="dropdown-item" href="{{ path('admin.category.show', {'id': category.id}) }}">{{ 'admin.common.actions.details'|trans }}</a>
 									</li>
 									<li>
-										<a class="dropdown-item" href="{{ path('admin.category.edit', {'id': category.id}) }}">Modifier</a>
+										<a class="dropdown-item" href="{{ path('admin.category.edit', {'id': category.id}) }}">{{ 'admin.common.actions.edit'|trans }}</a>
 									</li>
 									<li>
-										<a class="dropdown-item text-primary" href="#">Supprimer</a>
+										<button
+											type="button"
+											class="dropdown-item text-primary"
+											data-delete-url="{{ path('admin.category.delete', {'id': category.id}) }}"
+											data-delete-message="{{ 'admin.categories.confirmDelete'|trans }} {{ category.name }} ?">
+											{{ 'admin.common.actions.delete'|trans }}
+										</button>
 									</li>
 								</ul>
 							</div>
@@ -58,7 +64,7 @@
 		<div class="d-flex flex-row justify-content-between align-items-center">
 			<div>
 				<b>{{ categoriesCount }}</b>
-				résultats
+				{{ 'admin.common.results'|trans }}
 			</div>
 			<div class="navigation">
 				{{ knp_pagination_render(categories, '@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig') }}

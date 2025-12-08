@@ -8,6 +8,7 @@ use App\Enum\ProductStatus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -104,8 +105,28 @@ class ProductType extends AbstractType
                     'class' => 'form-select'
                 ]
             ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Images du produit',
+                'mapped' => false,
+                'required' => false,
+                'multiple' => true,
+                'constraints' => [
+                    new Assert\All([
+                        new Assert\Image([
+                            'maxSize' => '5M',
+                            'maxSizeMessage' => 'L\'image ne doit pas dépasser 5 Mo.',
+                            'mimeTypes' => ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+                            'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG, WebP ou GIF).',
+                        ]),
+                    ]),
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'accept' => 'image/jpeg,image/png,image/webp,image/gif'
+                ],
+            ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Créer le produit',
+                'label' => 'Appliquer',
                 'attr' => [
                     'class' => 'btn btn-primary mt-3',
                 ],

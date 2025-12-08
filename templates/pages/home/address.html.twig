@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'address.pageTitle'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="container my-4">
+		<nav aria-label="breadcrumb" class="mb-3">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('home', {'_locale': app.request.locale}) }}">{{ 'navbar.home'|trans }}</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ path('cart', {'_locale': app.request.locale}) }}">{{ 'cart.title'|trans }}</a>
+				</li>
+				<li class="breadcrumb-item active">{{ 'address.breadcrumb'|trans }}</li>
+			</ol>
+		</nav>
+
+		<h2 class="mb-4">{{ 'address.title'|trans }}</h2>
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-body">
+						{{ form_start(form) }}
+
+						{{ form_row(form.street) }}
+
+						<div class="row">
+							<div class="col-md-4">
+								{{ form_row(form.postalCode) }}
+							</div>
+							<div class="col-md-8">
+								{{ form_row(form.city) }}
+							</div>
+						</div>
+
+						{{ form_row(form.country) }}
+
+						<div class="d-flex justify-content-between mt-3">
+							<a href="{{ path('cart', {'_locale': app.request.locale}) }}" class="btn btn-secondary">
+								{{ 'address.buttons.back'|trans }}
+							</a>
+							<button type="submit" class="btn btn-primary">
+								{{ 'address.buttons.continue'|trans }}
+							</button>
+						</div>
+
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-body">
+						<h5>{{ 'address.summary.title'|trans }}</h5>
+						<hr>
+						<div class="d-flex justify-content-between mb-2">
+							<span>{{ 'address.summary.subtotal'|trans }}</span>
+							<span>{{ total }} €</span>
+						</div>
+						<div class="d-flex justify-content-between mb-2">
+							<span>{{ 'address.summary.shipping'|trans }}</span>
+							<span class="text-success">{{ 'address.summary.shippingFree'|trans }}</span>
+						</div>
+						<hr>
+						<div class="d-flex justify-content-between">
+							<strong>{{ 'address.summary.total'|trans }}</strong>
+							<strong>{{ total }} €</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
