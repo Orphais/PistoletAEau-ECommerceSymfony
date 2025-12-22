@@ -1,20 +1,143 @@
-<footer class="py-3 my-4">
-	<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-		<li class="nav-item">
-			<a href="#" class="nav-link px-2 text-body-secondary">Home</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="nav-link px-2 text-body-secondary">Features</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="nav-link px-2 text-body-secondary">Pricing</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="nav-link px-2 text-body-secondary">FAQs</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="nav-link px-2 text-body-secondary">About</a>
-		</li>
-	</ul>
-	<p class="text-center text-body-secondary">© 2025 Company, Inc</p>
+<footer class="bg-light mt-5 border-top">
+	<div class="container py-5">
+		<div class="row g-4">
+			<div class="col-lg-4 col-md-6">
+				<div class="d-flex align-items-center mb-3">
+					<img src="{{ asset('uploads/ico/ico.png') }}" alt="TirAmisou" height="40" class="me-2">
+					<h5 class="mb-0 fw-bold">TirAmisou</h5>
+				</div>
+				<p class="text-muted">
+					{{ 'footer.description'|trans }}
+				</p>
+				<div class="d-flex gap-3">
+					<a href="#" class="text-muted" aria-label="Facebook">
+						<i class="bi bi-facebook fs-5"></i>
+					</a>
+					<a href="#" class="text-muted" aria-label="Twitter">
+						<i class="bi bi-twitter-x fs-5"></i>
+					</a>
+					<a href="#" class="text-muted" aria-label="Instagram">
+						<i class="bi bi-instagram fs-5"></i>
+					</a>
+					<a href="#" class="text-muted" aria-label="YouTube">
+						<i class="bi bi-youtube fs-5"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-lg-2 col-md-6">
+				<h6 class="fw-bold mb-3">{{ 'footer.shop'|trans }}</h6>
+				<ul class="list-unstyled">
+					<li class="mb-2">
+						<a href="{{ path('home', {'_locale': app.request.locale}) }}" class="text-muted text-decoration-none">
+							{{ 'footer.products'|trans }}
+						</a>
+					</li>
+					<li class="mb-2">
+						<a href="{{ path('search', {'_locale': app.request.locale}) }}" class="text-muted text-decoration-none">
+							{{ 'footer.search'|trans }}
+						</a>
+					</li>
+					{% if app.user %}
+						<li class="mb-2">
+							<a href="{{ path('cart', {'_locale': app.request.locale}) }}" class="text-muted text-decoration-none">
+								{{ 'footer.cart'|trans }}
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+
+			<div class="col-lg-2 col-md-6">
+				<h6 class="fw-bold mb-3">{{ 'footer.account'|trans }}</h6>
+				<ul class="list-unstyled">
+					{% if app.user %}
+						<li class="mb-2">
+							<a href="#" class="text-muted text-decoration-none">
+								{{ 'footer.myAccount'|trans }}
+							</a>
+						</li>
+						<li class="mb-2">
+							<a href="#" class="text-muted text-decoration-none">
+								{{ 'footer.orders'|trans }}
+							</a>
+						</li>
+					{% else %}
+						<li class="mb-2">
+							<a href="{{ path('security.login') }}" class="text-muted text-decoration-none">
+								{{ 'navbar.login'|trans }}
+							</a>
+						</li>
+						<li class="mb-2">
+							<a href="{{ path('security.registration') }}" class="text-muted text-decoration-none">
+								{{ 'navbar.register'|trans }}
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+
+			<div class="col-lg-2 col-md-6">
+				<h6 class="fw-bold mb-3">{{ 'footer.help'|trans }}</h6>
+				<ul class="list-unstyled">
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.contact'|trans }}
+						</a>
+					</li>
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.faq'|trans }}
+						</a>
+					</li>
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.shipping'|trans }}
+						</a>
+					</li>
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.returns'|trans }}
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-lg-2 col-md-6">
+				<h6 class="fw-bold mb-3">{{ 'footer.legal'|trans }}</h6>
+				<ul class="list-unstyled">
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.terms'|trans }}
+						</a>
+					</li>
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.privacy'|trans }}
+						</a>
+					</li>
+					<li class="mb-2">
+						<a href="#" class="text-muted text-decoration-none">
+							{{ 'footer.cookies'|trans }}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<hr class="my-4">
+
+		<div class="row align-items-center">
+			<div class="col-md-6 text-center text-md-start">
+				<p class="text-muted mb-0">
+					© {{ "now"|date("Y") }} TirAmisou. {{ 'footer.allRightsReserved'|trans }}
+				</p>
+			</div>
+			<div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/124px-PayPal.svg.png" alt="PayPal" height="20" class="me-2">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/120px-Visa_Inc._logo.svg.png" alt="Visa" height="20" class="me-2">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/120px-Mastercard-logo.svg.png" alt="Mastercard" height="20">
+			</div>
+		</div>
+	</div>
 </footer>

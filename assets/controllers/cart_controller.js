@@ -8,7 +8,6 @@ export default class extends Controller {
     };
 
     connect() {
-        console.log('Cart controller connected');
     }
 
     async addToCart(event) {
@@ -37,6 +36,7 @@ export default class extends Controller {
             if (response.ok && data.success) {
                 this.showNotification(data.message, 'success');
 
+                // event pour update badge panier
                 window.dispatchEvent(new CustomEvent('cart-updated', {
                     detail: {
                         count: data.cartCount,

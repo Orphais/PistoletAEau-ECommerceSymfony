@@ -48,12 +48,14 @@ class AppFixtures extends Fixture
             $product->setPrice($this->faker->randomFloat(2, 1, 100));
             $product->setCategory($this->faker->randomElement($categories));
 
+            // 1/3 en rupture
             if ($i % 3 == 0) {
                 $product->setStock(0);
                 $product->setStatus(\App\Enum\ProductStatus::OUT_OF_STOCK);
             } else {
                 $product->setStock($this->faker->numberBetween(1, 100));
 
+                // random disponible/preorder
                 if ($this->faker->boolean()) {
                     $product->setStatus(\App\Enum\ProductStatus::AVAILABLE);
                 } else {
@@ -91,6 +93,7 @@ class AppFixtures extends Fixture
 
         // Users
         $users = [];
+        // compte admin
         $admin = new User();
         $admin->setEmail("admin@tiramisou.com");
         $admin->setFirstName("Admin");

@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mes cartes bancaires{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-12">
+				<nav aria-label="breadcrumb" class="mb-4">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('home', {'_locale': app.request.locale}) }}">Accueil</a>
+						</li>
+						<li class="breadcrumb-item active">Mes cartes bancaires</li>
+					</ol>
+				</nav>
+
+				<h2 class="mb-4">
+					Gestion des cartes bancaires
+				</h2>
+
+				<div class="alert alert-info mb-4">
+					<i class="bi bi-info-circle"></i>
+					<strong>Sécurité:</strong> Vos informations de carte bancaire sont cryptées et sécurisées.
+				</div>
+			</div>
+		</div>
+
+		<twig:CreditCardForm :creditCards="existingCards" />
+	</div>
+{% endblock %}

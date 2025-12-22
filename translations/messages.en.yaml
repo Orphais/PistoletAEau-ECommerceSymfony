@@ -3,12 +3,33 @@ navbar:
     search: "Search"
     cart: "Cart"
     dashboard: "Dashboard"
+    myCards: "My Cards"
     login: "Login"
     register: "Register"
     logout: "Log Out"
     language:
         fr: "French"
         en: "English"
+
+footer:
+    description: "Your online store specialized in quality water guns. Discover our selection of products for all ages."
+    shop: "Shop"
+    products: "Products"
+    search: "Search"
+    cart: "Cart"
+    account: "Account"
+    myAccount: "My Account"
+    orders: "My Orders"
+    help: "Help"
+    contact: "Contact"
+    faq: "FAQ"
+    shipping: "Shipping"
+    returns: "Returns"
+    legal: "Legal"
+    terms: "Terms of Service"
+    privacy: "Privacy Policy"
+    cookies: "Cookie Management"
+    allRightsReserved: "All rights reserved"
 
 home:
     pageTitle: "Home - TirAmisou"
@@ -54,6 +75,8 @@ search:
     minChars: "Please enter at least 2 characters"
     noResults: "No products found for this search"
     enterQuery: "Enter a search term to get started"
+    startTyping: "Start typing to search for products"
+    loading: "Loading..."
 
 cart:
     pageTitle: "Cart - TirAmisou"

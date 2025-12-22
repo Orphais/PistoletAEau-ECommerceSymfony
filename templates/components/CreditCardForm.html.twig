@@ -1,0 +1,131 @@
+<div{{ attributes }}>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">
+                        <i class="bi bi-credit-card"></i>
+                        Ajouter une carte bancaire
+                    </h5>
+
+                    {% if showSuccessMessage %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle"></i>
+                            {{ successMessage }}
+                        </div>
+                    {% endif %}
+
+                    {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
+                        <div class="mb-3">
+                            {{ form_label(form.number) }}
+                            {{ form_widget(form.number, {
+                                'attr': {
+                                    'placeholder': '1234 5678 9012 3456'
+                                }
+                            }) }}
+                            {{ form_errors(form.number) }}
+                            <small class="form-text text-muted">
+                                Entrez le numéro à 16 chiffres de votre carte
+                            </small>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form_label(form.expirationDate) }}
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        {{ form_widget(form.expirationDate.month, {
+                                            'attr': {
+                                                'class': 'form-select'
+                                            }
+                                        }) }}
+                                    </div>
+                                    <div class="col-6">
+                                        {{ form_widget(form.expirationDate.year, {
+                                            'attr': {
+                                                'class': 'form-select'
+                                            }
+                                        }) }}
+                                    </div>
+                                </div>
+                                {{ form_widget(form.expirationDate.day, {'attr': {'style': 'display:none'}}) }}
+                                {{ form_errors(form.expirationDate) }}
+                                <small class="form-text text-muted">
+                                    Mois / Année
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.cvv) }}
+                                {{ form_widget(form.cvv, {
+                                    'attr': {
+                                        'placeholder': '123'
+                                    }
+                                }) }}
+                                {{ form_errors(form.cvv) }}
+                                <small class="form-text text-muted">
+                                    Code à 3 chiffres au dos de la carte
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    data-action="click->live#action"
+                                    data-live-action-param="save">
+                                <i class="bi bi-plus-circle"></i>
+                                Ajouter la carte
+                            </button>
+
+                            {% if creditCards|length > 0 %}
+                                <button type="button"
+                                        class="btn btn-outline-secondary"
+                                        data-action="live#action"
+                                        data-live-action-param="addAnother">
+                                    <i class="bi bi-plus"></i>
+                                    Ajouter une autre carte
+                                </button>
+                            {% endif %}
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">
+                        <i class="bi bi-wallet2"></i>
+                        Cartes enregistrées
+                    </h5>
+
+                    {% if creditCards|length > 0 %}
+                        <div class="list-group">
+                            {% for card in creditCards %}
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-1">
+                                                <i class="bi bi-credit-card-2-front"></i>
+                                                {{ card.number }}
+                                            </h6>
+                                            <small class="text-muted">Expire le {{ card.expirationDate }}</small>
+                                        </div>
+                                        <span class="badge bg-success">Ajoutée</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-credit-card" style="font-size: 3rem;"></i>
+                            <p class="mt-3">Aucune carte enregistrée</p>
+                            <small>Ajoutez votre première carte bancaire</small>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

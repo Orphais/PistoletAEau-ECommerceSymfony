@@ -1,71 +1,111 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-	<div class="container-fluid flex flex-column">
+<nav class="navbar navbar-expand-lg bg-primary sticky-top shadow-sm" data-bs-theme="dark">
+	<div class="container-fluid">
 		<a class="navbar-brand d-flex align-items-center fs-3 fw-bold" href="{{ path('home', {'_locale': app.request.locale}) }}">
-			<img src="{{ asset('uploads/ico/ico.png') }}" alt="TirAmisou" height="65" class="me-3">
-			TirAmisou
+			<img src="{{ asset('uploads/ico/ico.png') }}" alt="TirAmisou" height="50" class="me-2">
+			<span class="d-none d-md-inline">TirAmisou</span>
 		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarColor01">
-			<ul class="navbar-nav me-auto">
+
+		<div class="collapse navbar-collapse" id="mainNavbar">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('home', {'_locale': app.request.locale}) }}">
-						<i class="bi bi-house"></i>
+					<a class="nav-link" href="{{ path('home', {'_locale': app.request.locale}) }}">
+						<i class="bi bi-house-fill me-1"></i>
 						{{ 'navbar.home'|trans }}
 					</a>
-					<span class="visually-hidden">(current)</span>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('search', {'_locale': app.request.locale}) }}">
-						<i class="bi bi-search"></i>
+						<i class="bi bi-search me-1"></i>
 						{{ 'navbar.search'|trans }}
 					</a>
 				</li>
+			</ul>
+
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
 				{% if app.user %}
-					<li class="nav-item" data-controller="cart-badge" data-cart-badge-locale-value="{{ app.request.locale }}">
+					<li class="nav-item me-lg-3" data-controller="cart-badge" data-cart-badge-locale-value="{{ app.request.locale }}">
 						<a class="nav-link position-relative" href="{{ path('cart', {'_locale': app.request.locale}) }}">
-							<i class="bi bi-cart3"></i>
-							{{ 'navbar.cart'|trans }}
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" data-cart-badge-target="count">
+							<i class="bi bi-cart3 fs-5"></i>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" data-cart-badge-target="count" style="font-size: 0.65rem;">
 								0
 							</span>
 						</a>
 					</li>
-					{% if is_granted('ROLE_ADMIN') %}
-						<li class="nav-item">
-							<a class="nav-link" href="{{ path('admin') }}">
-								<i class="bi bi-speedometer2"></i>
-								{{ 'navbar.dashboard'|trans }}
-							</a>
-						</li>
-					{% endif %}
-				{% endif %}
-			</ul>
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						<i class="bi bi-translate"></i>
-					</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}">{{ 'navbar.language.fr'|trans }}</a>
-						<a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">{{ 'navbar.language.en'|trans }}</a>
-					</div>
-				</li>
-				{% if app.user %}
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('security.logout') }}">
-							<i class="bi bi-box-arrow-left"></i>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-person-circle fs-5 me-1"></i>
+							<span class="d-lg-none">{{ app.user.email }}</span>
 						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li>
+								<h6 class="dropdown-header">
+									<i class="bi bi-person-fill me-1"></i>
+									{{ app.user.email }}
+								</h6>
+							</li>
+							<li><hr class="dropdown-divider"></li>
+							{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a class="dropdown-item" href="{{ path('admin') }}">
+										<i class="bi bi-speedometer2 me-2"></i>
+										{{ 'navbar.dashboard'|trans }}
+									</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+							{% endif %}
+							<li>
+								<a class="dropdown-item" href="{{ path('credit_card.index', {'_locale': app.request.locale}) }}">
+									<i class="bi bi-credit-card me-2"></i>
+									{{ 'navbar.myCards'|trans }}
+								</a>
+							</li>
+							<li><hr class="dropdown-divider"></li>
+							<li>
+								<a class="dropdown-item text-danger" href="{{ path('security.logout') }}">
+									<i class="bi bi-box-arrow-left me-2"></i>
+									{{ 'navbar.logout'|trans }}
+								</a>
+							</li>
+						</ul>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('security.login') }}">{{ 'navbar.login'|trans }}</a>
+						<a class="nav-link" href="{{ path('security.login') }}">
+							<i class="bi bi-box-arrow-in-right me-1"></i>
+							{{ 'navbar.login'|trans }}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('security.registration') }}">{{ 'navbar.register'|trans }}</a>
+						<a class="btn btn-outline-light btn-sm ms-lg-2" href="{{ path('security.registration') }}">
+							{{ 'navbar.register'|trans }}
+						</a>
 					</li>
 				{% endif %}
+
+				<li class="nav-item dropdown ms-lg-2">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-translate fs-5"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-end">
+						<li>
+							<a class="dropdown-item {{ app.request.locale == 'fr' ? 'active' : '' }}" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}">
+								<i class="bi bi-flag-fill me-2"></i>
+								{{ 'navbar.language.fr'|trans }}
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item {{ app.request.locale == 'en' ? 'active' : '' }}" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+								<i class="bi bi-flag-fill me-2"></i>
+								{{ 'navbar.language.en'|trans }}
+							</a>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>

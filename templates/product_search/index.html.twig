@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Recherche de produits{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10">
+				<h2 class="text-center mb-4">Recherche de produits</h2>
+
+				<div data-controller="product-search" data-product-search-locale-value="{{ app.request.locale }}">
+					<div class="card mb-4">
+						<div class="card-body">
+							<div class="input-group input-group-lg">
+								<span class="input-group-text">
+									<i class="bi bi-search"></i>
+								</span>
+								<input type="text"
+									   class="form-control"
+									   placeholder="Rechercher un produit..."
+									   data-product-search-target="searchInput"
+									   data-action="input->product-search#search keyup->product-search#handleKeyup"
+									   autocomplete="off">
+								<button class="btn btn-outline-secondary" type="button" data-action="click->product-search#clear">
+									<i class="bi bi-x-lg"></i>
+								</button>
+							</div>
+
+							<div class="position-relative">
+								<div class="list-group mt-2 position-absolute w-100"
+									 style="z-index: 1000; max-height: 400px; overflow-y: auto; display: none;"
+									 data-product-search-target="autocompleteResults">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div data-product-search-target="loadingIndicator" class="text-center my-4" style="display: none;">
+						<div class="spinner-border text-primary" role="status">
+							<span class="visually-hidden">Chargement...</span>
+						</div>
+					</div>
+
+					<div data-product-search-target="searchResults">
+						<div class="text-center text-muted py-5">
+							<i class="bi bi-search" style="font-size: 3rem;"></i>
+							<p class="mt-3">Commencez à taper pour rechercher des produits</p>
+						</div>
+					</div>
+
+					<div data-product-search-target="noResults" style="display: none;">
+						<div class="text-center text-muted py-5">
+							<i class="bi bi-emoji-frown" style="font-size: 3rem;"></i>
+							<p class="mt-3">Aucun produit trouvé</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

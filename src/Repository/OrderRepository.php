@@ -17,6 +17,7 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    // CA par mois (commandes livrées only)
     public function getTotalSalesByMonth(): array
     {
         return $this->createQueryBuilder('o')

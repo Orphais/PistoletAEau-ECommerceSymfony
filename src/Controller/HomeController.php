@@ -118,6 +118,72 @@ final class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/{_locale}/pay', name: 'pay', requirements: ['_locale' => 'fr|en'])]
+    public function pay(
+        CartRepository $cartRepository,
+        EntityManagerInterface $entityManager,
+        Request $request
+    ): Response {
+        $user = $this->getUser();
+        if (!$user) {
+            $this->addFlash('error', 'Vous devez être connecté.');
+            return $this->redirectToRoute('security.login');
+        }
+
+        $cart = $cartRepository->findActiveCartByUser($user);
+        if (!$cart || $cart->getItems()->isEmpty()) {
+            $this->addFlash('error', 'Votre panier est vide.');
+            return $this->redirectToRoute('cart', ['_locale' => $request->getLocale()]);
+        }
+
+        // check stock disponible
+        foreach ($cart->getItems() as $cartItem) {
+            $product = $cartItem->getProduct();
+            if ($product->getStock() < $cartItem->getQuantity()) {
+                $this->addFlash('error', 'Stock insuffisant pour ' . $product->getName());
+                return $this->redirectToRoute('cart', ['_locale' => $request->getLocale()]);
+            }
+        }
+
+        // creation commande
+        $order = new \App\Entity\Order();
+        $order->setCustomer($user);
+        $order->setReference('CMD-' . date('Ymd') . '-' . uniqid());
+        $order->setStatus(\App\Enum\OrderStatus::IN_PREPARATION);
+
+        $entityManager->persist($order);
+
+        // conversion panier -> commande
+        foreach ($cart->getItems() as $cartItem) {
+            $product = $cartItem->getProduct();
+
+            $orderItem = new \App\Entity\OrderItem();
+            $orderItem->setProduct($product);
+            $orderItem->setPurchaseOrder($order);
+            $orderItem->setQuantity($cartItem->getQuantity());
+            // save prix actuel pour historique
+            $orderItem->setProductPrice($product->getPrice());
+
+            $entityManager->persist($orderItem);
+
+            // update stock
+            $newStock = $product->getStock() - $cartItem->getQuantity();
+            $product->setStock($newStock);
+        }
+
+        // clean panier
+        foreach ($cart->getItems() as $cartItem) {
+            $entityManager->remove($cartItem);
+        }
+        $entityManager->remove($cart);
+
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Votre commande a été validée avec succès ! Référence : ' . $order->getReference());
+
+        return $this->redirectToRoute('home', ['_locale' => $request->getLocale()]);
+    }
+
     #[Route('/', name: 'home.redirect')]
     public function redirectToDefault(): Response
     {

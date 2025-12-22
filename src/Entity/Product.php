@@ -114,6 +114,7 @@ class Product
     {
         $this->stock = $stock;
 
+        // auto update status selon stock (sauf preorder)
         if ($this->stock == 0 && $this->status !== ProductStatus::PREORDER) {
             $this->status = ProductStatus::OUT_OF_STOCK;
         } else if ($this->stock > 0 && $this->status !== ProductStatus::PREORDER) {

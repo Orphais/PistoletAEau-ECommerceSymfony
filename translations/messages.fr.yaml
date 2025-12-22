@@ -3,12 +3,33 @@ navbar:
     search: "Recherche"
     cart: "Panier"
     dashboard: "Tableau de bord"
+    myCards: "Mes cartes"
     login: "Connexion"
     register: "Inscription"
     logout: "Se déconnecter"
     language:
         fr: "Français"
         en: "Anglais"
+
+footer:
+    description: "Votre boutique en ligne spécialisée dans les pistolets à eau de qualité. Découvrez notre sélection de produits pour tous les âges."
+    shop: "Boutique"
+    products: "Produits"
+    search: "Recherche"
+    cart: "Panier"
+    account: "Compte"
+    myAccount: "Mon compte"
+    orders: "Mes commandes"
+    help: "Aide"
+    contact: "Contact"
+    faq: "FAQ"
+    shipping: "Livraison"
+    returns: "Retours"
+    legal: "Légal"
+    terms: "Conditions d'utilisation"
+    privacy: "Politique de confidentialité"
+    cookies: "Gestion des cookies"
+    allRightsReserved: "Tous droits réservés"
 
 home:
     pageTitle: "Accueil - TirAmisou"
@@ -54,6 +75,8 @@ search:
     minChars: "Veuillez entrer au moins 2 caractères"
     noResults: "Aucun produit trouvé pour cette recherche"
     enterQuery: "Entrez un terme de recherche pour commencer"
+    startTyping: "Commencez à taper pour rechercher des produits"
+    loading: "Chargement..."
 
 cart:
     pageTitle: "Panier - TirAmisou"

@@ -7,7 +7,6 @@ export default class extends Controller {
     };
 
     connect() {
-        console.log('Cart badge controller connected');
         this.loadCartCount();
 
         this.boundUpdateCart = this.updateCart.bind(this);

@@ -128,9 +128,9 @@
 						</div>
 
 						<div class="d-grid gap-2">
-							<button class="btn btn-success btn-lg">
+							<a href="{{ path('pay', {'_locale': app.request.locale}) }}" class="btn btn-success btn-lg">
 								{{ 'recap.buttons.pay'|trans }}
-							</button>
+							</a>
 							<a href="{{ path('address', {'_locale': app.request.locale}) }}" class="btn btn-secondary">
 								{{ 'recap.buttons.modifyAddress'|trans }}
 							</a>

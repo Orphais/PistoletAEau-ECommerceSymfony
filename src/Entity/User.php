@@ -58,11 +58,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * @var Collection<int, CreditCard>
+     */
+    #[ORM\OneToMany(targetEntity: CreditCard::class, mappedBy: 'user')]
+    private Collection $creditCards;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->carts = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+        $this->creditCards = new ArrayCollection();
 
     }
 
@@ -249,6 +256,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($cart->getUser() === $this) {
                 $cart->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CreditCard>
+     */
+    public function getCreditCards(): Collection
+    {
+        return $this->creditCards;
+    }
+
+    public function addCreditCard(CreditCard $creditCard): static
+    {
+        if (!$this->creditCards->contains($creditCard)) {
+            $this->creditCards->add($creditCard);
+            $creditCard->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreditCard(CreditCard $creditCard): static
+    {
+        if ($this->creditCards->removeElement($creditCard)) {
+            // set the owning side to null (unless already changed)
+            if ($creditCard->getUser() === $this) {
+                $creditCard->setUser(null);
             }
         }
 

@@ -16,6 +16,7 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    // nb produits par statut
     public function getStockRatio(): array
     {
         return $this->createQueryBuilder('p')
@@ -25,6 +26,7 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // recherche produits (avec images + catégories)
     public function searchByName(string $query): array
     {
         return $this->createQueryBuilder('p')
