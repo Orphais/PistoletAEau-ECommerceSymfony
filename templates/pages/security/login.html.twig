@@ -8,7 +8,22 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-8 col-lg-6">
-				<div class="card mt-5 shadow">
+				<div class="alert alert-info border-0 shadow-sm mt-5 mb-0" role="alert">
+					<div class="d-flex align-items-start gap-2">
+						<span style="font-size:1.2rem">🔒</span>
+						<div>
+							<strong>Accès démo — base de données verrouillée</strong>
+							<p class="mb-1 mt-1 small">Pour des raisons de sécurité, les inscriptions et modifications sont désactivées. Deux comptes de démonstration sont disponibles&nbsp;:</p>
+							<ul class="mb-0 small">
+								<li><code>admin@tiramisou.com</code> — rôle Admin</li>
+								<li><code>user@tiramisou.com</code> — rôle Utilisateur</li>
+							</ul>
+							<p class="mb-0 mt-1 small">Mot de passe&nbsp;: <code>password</code></p>
+						</div>
+					</div>
+				</div>
+
+				<div class="card shadow">
 					<div class="card-body p-4">
 						<h1 class="card-title text-center mb-4">{{ 'security.login.title'|trans }}</h1>
 
